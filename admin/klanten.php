@@ -1,9 +1,8 @@
 <?php
 require_once("../core/db.php") ;
 
-
 //selecteer alle klanten uit de database
-$sql = "SELECT * FROM klanten";
+$sql = "SELECT * FROM gebruiker";
 $klanten = $conn->query($sql );
 ?>
 <?php include "../templates/header.php" ?>
@@ -14,17 +13,21 @@ $klanten = $conn->query($sql );
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>titel</th>
-                        <th>uitgever</th>
-                        <th>platform</th>
-                        <th>prijs</th>
-                        <th>voorraad</th>
+                        <th>gebruikersnaam</th>
+                        <th>rol</th>
+                        <th>voornaam</th>
+                        <th>achternaam</th>
+                        <th>geboortedatum</th>
+                        <th>woonplaats</th>
+                        <th>game_aankoop</th>
                     </tr>
                 </thead>
                <tbody>
                    <?php foreach($klanten as $klant ){ ?>
                             <tr>
-                                <td><?php echo $klant["klant_id"]?></td>
+                                <td><?php echo $klant["gebruiker_id"]?></td>
+                                <td><?php echo $klant["gebruikersnaam"]?></td>
+                                <td><?php echo $klant["rol"]?></td>
                                 <td><?php echo $klant["voornaam"]?></td>
                                 <td><?php echo $klant["achternaam"]?></td>
                                 <td><?php echo $klant["geboortedatum"]?></td>

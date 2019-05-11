@@ -1,30 +1,24 @@
+<?php include "templates/header.php" ?>
+<?php include "menu.php" ?>
 <?php
-// unset($_COOKIE);
 
-
-require_once("core/db.php") ;
+//plaats items in de winkelmand
 if(isset($_POST["bestellen"])){
-    $titel = urlencode($_POST["titel"]);
-    $product_id = $_POST["product_id"];
-
-    $productsSelected[$product_id] = $titel;
-
-    setcookie("bestelCookie", json_encode($productsSelected), time() + (86400 * 30), "/"); // 86400 = 1 day
-    
-    if (isset($_COOKIE['bestelCookie'])) {
-        // success
-        print_r($_COOKIE['bestelCookie']);
-      }
+    $game_id = $_POST["game_id"];
+    $gebruiker_id = $_SESSION["gebruiker_id"];
+    $sql = "INSERT INTO winkelmandje (gebruiker_id, product_id) VALUES ($gebruiker_id, $game_id )";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 }
+
+
+
 
 //haal alle producten op die op voorraad zijn (dus waarbij voorraad groter is dan 0 )
 $sql = "SELECT * FROM producten WHERE voorraad > 0";
-$producten = $conn->query($sql );
+$producten = $conn->query($sql);
 
 ?>
-<?php include "templates/header.php" ?>
-<?php include "cart.php" ?>
-
 <div class="container mt-4">
     <div class="row">
         <?php foreach($producten as $product){ ?>
@@ -36,13 +30,11 @@ $producten = $conn->query($sql );
                     <p class="card-text"><strong>&euro; <?php echo $product["prijs"] ?></strong></p>
                     <p class="card-text">Op voorraad: <?php echo $product["voorraad"] ?></p>
                     <form method="post">
-                        <input type="hidden" name="product_id" value="<?php echo $product["game_id"] ?>">
-                        <input type="hidden" name="titel" value="<?php echo $product["titel"] ?>">
+                        <input type="hidden" name="game_id" value="<?php echo $product["game_id"] ?>">
                         <button type="submit" class="btn btn-info" name="bestellen">Bestellen</button>
                     </form>
                 </div>
-                </div>
-
+            </div>
         <?php } ?>
     </div> 
 

@@ -28,13 +28,13 @@ if( isset($_POST["submit"] ) && $_POST["gebruikersnaam"] != ""  ){
     //staat de gebruikersnaam in de database? Ja, check het wachtwoord. Nee? Probeer het opnieuw
     if(!empty($resultaat)){
         if($resultaat["wachtwoord"] == $_POST["wachtwoord"]){
-            
-            //start een sessie en sla de gegevens uit de database op in de sessie array
-            session_start();
+
+            //Sla de gegevens uit de database op in de sessie array
+            $_SESSION["gebruiker_id"]   = $resultaat["gebruiker_id"];
             $_SESSION["gebruikersnaam"] = $resultaat["gebruikersnaam"];
             $_SESSION["rol"]            = $resultaat["rol"];
             
-            if($resultaat["rol"] == "medewerker"){
+            if($resultaat["rol"] == "medewerker"){ // is het een medewerker of logt een klant in?
                 header("location: admin/klanten.php");
             }else{
                 header("location: shop.php");
