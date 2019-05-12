@@ -6,9 +6,26 @@
 if(isset($_POST["bestellen"])){
     $game_id = $_POST["game_id"];
     $gebruiker_id = $_SESSION["gebruiker_id"];
-    $sql = "INSERT INTO winkelmandje (gebruiker_id, product_id) VALUES ($gebruiker_id, $game_id )";
+
+    $sql = "SELECT aantal FROM winkelmandje WHERE gebruiker_id = $gebruiker_id AND product_id = $game_id ";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
+
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    var_dump($product["aantal"]);
+
+    if(empty($product)){
+        $sql = "INSERT INTO winkelmandje (gebruiker_id, product_id, aantal) VALUES ($gebruiker_id, $game_id, 1 )";
+    }else{
+        $plus_een = $product["aantal"] + 1;
+        $sql = "UPDATE winkelmandje SET aantal = $plus_een WHERE gebruiker_id = $gebruiker_id AND product_id = $game_id";
+    }
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    
+   
 }
 
 

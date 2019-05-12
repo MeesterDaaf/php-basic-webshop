@@ -24,6 +24,7 @@
                             <div class="list-group-item list-group-item-action mt-2">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1"><?php echo $product["titel"];?></h5>
+                                    <p class="mb-1"><span class="badge badge-primary badge-pill"><?php echo $product["aantal"]; ?> stuks</span></p>
                                 </div>
                                 <p class="mb-1"><?php echo $product["platform"];?></p>
                                 <small>&euro; <?php echo $product["prijs"];?></small>
