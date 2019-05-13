@@ -42,7 +42,7 @@
         </div>
         <div class="col  mt-5">
             <div class="alert alert-info" role="alert">
-                Totaalprijs: &euro; <?php  echo $totaal_prijs; ?>
+                Totaalprijs: &euro; <?php  echo $totaal_prijs; ?> voor <?php echo ($aantal_producten) ? $aantal_producten . " producten": "" ?>
             </div>
         </div>  
     </div>

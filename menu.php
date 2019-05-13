@@ -4,7 +4,7 @@ require_once("core/db.php");
 
 //hoeveel items heeft de gebruiker in zijn winkelmandke?? 
 $gebruiker_id = $_SESSION['gebruiker_id'];
-$sql = "SELECT COUNT(*) FROM winkelmandje WHERE gebruiker_id = $gebruiker_id";
+$sql = "SELECT SUM(aantal) FROM winkelmandje WHERE gebruiker_id = $gebruiker_id";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $aantal_producten = $stmt->fetch()[0];// $aantal_producten wordt gebruikt om het aantal in het menu weer te geven.
