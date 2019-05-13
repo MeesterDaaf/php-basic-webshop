@@ -1,13 +1,38 @@
 <?php
 require_once("../core/db.php") ;
 
-//selecteer alle producten uit de database
-$sql = "SELECT * FROM producten";
-$producten = $conn->query($sql );
+if(isset($_POST["submit"]) && $_POST["uitgever"] != "Alles"){
+    $uitgever = $_POST["uitgever"];
+    $sql = "SELECT * FROM producten WHERE uitgever = '$uitgever'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $producten = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+else{
+    //selecteer alle producten uit de database
+    $sql = "SELECT * FROM producten";
+    $producten = $conn->query($sql );
+}
+
+
 ?>
 <?php include "../templates/header.php" ?>
 <?php include "../admin/menu.php" ?>
     <div class="container">
+        <div class="row">
+        <form action="producten.php" method="post">
+            <div class="form-group">
+                <label for="uitgever">Uitgever:</label>
+                <select class="form-control" name="uitgever">
+                    <option value="Alles">Alles</option>
+                    <option value="Electronic Arts">Electronic Arts</option>
+                    <option value="Nintendo">Nintendo</option>
+                    <option value="Warner Bros">Warner Bros</option>
+                </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">selecteer producten</button>
+        </form>
+        </div>
         <div class="row">
             <table class="table">
                 <thead>
