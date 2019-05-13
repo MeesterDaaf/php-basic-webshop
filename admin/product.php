@@ -16,9 +16,8 @@
                         voorraad = $voorraad 
                     WHERE 
                         game_id  = $game_id";
-        var_dump($sql);                    
         $stmt = $conn->prepare($sql);
-        var_dump($stmt->execute());
+        $stmt->execute();
     }
 
     
