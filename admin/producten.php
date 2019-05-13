@@ -49,7 +49,7 @@ else{
                    <?php foreach($producten as $product ){ ?>
                             <tr>
                                 <td><?php echo $product["game_id"]?></td>
-                                <td><?php echo $product["titel"]?></td>
+                                <td><a href="product.php?game_id=<?php echo $product["game_id"]?>"><?php echo $product["titel"]?></a></td>
                                 <td><?php echo $product["uitgever"]?></td>
                                 <td><?php echo $product["platform"]?></td>
                                 <td><?php echo $product["prijs"]?></td>
