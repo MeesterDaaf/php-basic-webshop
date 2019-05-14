@@ -1,8 +1,12 @@
 <?php
 session_start();
+if( !isset($_SESSION["gebruikersnaam"] ) ){
+    header("location: index.php");
+}
+
 require_once("core/db.php");
 
-//hoeveel items heeft de gebruiker in zijn winkelmandke?? 
+//hoeveel items heeft de gebruiker in zijn winkelmandje?? 
 $gebruiker_id = $_SESSION['gebruiker_id'];
 $sql = "SELECT SUM(aantal) FROM winkelmandje WHERE gebruiker_id = $gebruiker_id";
 $stmt = $conn->prepare($sql);

@@ -2,6 +2,7 @@
 <?php include "menu.php" ?>
 <?php
 
+
 //plaats items in de winkelmand
 if(isset($_POST["bestellen"])){
     $game_id = $_POST["game_id"];
@@ -12,8 +13,6 @@ if(isset($_POST["bestellen"])){
     $stmt->execute();
 
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    var_dump($product["aantal"]);
 
     if(empty($product)){
         $sql = "INSERT INTO winkelmandje (gebruiker_id, product_id, aantal) VALUES ($gebruiker_id, $game_id, 1 )";
@@ -27,9 +26,6 @@ if(isset($_POST["bestellen"])){
     
    
 }
-
-
-
 
 //haal alle producten op die op voorraad zijn (dus waarbij voorraad groter is dan 0 )
 $sql = "SELECT * FROM producten WHERE voorraad > 0";
